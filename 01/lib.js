@@ -1,5 +1,7 @@
+const sortArray = (array = []) => array.sort((a, b) => a - b);
+
 const findPair = (target, input = []) => {
-  const sortedInput = input.sort((a, b) => a - b);
+  const sortedInput = sortArray(input);
 
   for (let index = 0, reverseIndex = sortedInput.length - 1; index < sortedInput.length || reverseIndex < 0;) {
     const a = sortedInput[index];
@@ -19,6 +21,20 @@ const findPair = (target, input = []) => {
   return [];
 }
 
+const findTriple = (target, input = []) => {
+  const sortedInput = sortArray(input);
+
+  for (let index = sortedInput.length - 1; index > 1; index--) {
+    const c = sortedInput[index];
+    const [a, b] = findPair(target - c, sortedInput.slice(0, index));
+
+    if(a && b) {
+      return [a, b, c];
+    }
+  }
+};
+
 module.exports = {
-  findPair
+  findPair,
+  findTriple
 }

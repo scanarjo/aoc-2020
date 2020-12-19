@@ -1,5 +1,5 @@
 const fs = require("fs").promises;
-const { findPair } = require("./lib");
+const { findTriple } = require("./lib");
 
 fs.readFile('./input.txt').then((input) => {
   const numbers = input.toString()
@@ -7,7 +7,7 @@ fs.readFile('./input.txt').then((input) => {
     .split(/[\r\n]+/)
     .map(val => parseInt(val, 10));
 
-  const [a, b] = findPair(2020, numbers);
+  const [a, b, c] = findTriple(2020, numbers);
 
-  console.log(`The answer is ${a * b}`);
+  console.log(`The answer is ${a * b * c}`);
 })
