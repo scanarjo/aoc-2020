@@ -14,7 +14,7 @@ tap.test('validatePassword()', async t => {
     t.equals(validatePassword({ min: 1, max: 3, char: 'a' }, 'ccaabb'), true);
   })
 
-  t.test('should return true for a valid password', async t => {
+  t.test('should return false for an invalid password', async t => {
     t.equals(validatePassword({ min: 3, max: 3, char: 'a' }, 'ccaabb'), false);
   })
 })
