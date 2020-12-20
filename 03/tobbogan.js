@@ -2,18 +2,18 @@ const loadMap = (rawMap = '') => {
   return rawMap.trim().split(/[\r\n]+/);
 }
 
-const translate = (origin, vector) => ({ x: origin.x + vector.x, y: origin.y + vector.y });
+const translate = ([ x1, y1 ], [ x2, y2 ]) => [ x1 + x2, y1 + y2 ];
 
-const countTrees = (map = []) => (vector) => {
+const countTrees = (map = []) => ([ x, y ]) => {
   let trees = 0;
 
-  let position = vector;
-  while(position.y < map.length) {
-    const row = map[position.y];
+  let position = [x, y];
+  while(position[1] < map.length) {
+    const row = map[position[1]];
 
-    if(row[position.x % row.length] === '#') trees += 1;
+    if(row[position[0] % row.length] === '#') trees += 1;
 
-    position = translate(position, vector);
+    position = translate(position, [ x, y ]);
   }
 
   return trees;

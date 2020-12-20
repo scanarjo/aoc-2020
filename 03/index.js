@@ -2,10 +2,22 @@ const fs = require('fs').promises;
 
 const { loadMap, countTrees } = require('./tobbogan');
 
+const vectors = [
+  [1, 1],
+  [3, 1],
+  [5, 1],
+  [7, 1],
+  [1, 2],
+];
+
 fs.readFile('./input.txt').then(file => {
   const map = loadMap(file.toString());
 
-  const treeCount = countTrees(map)({ x: 3, y: 1 });
+  const countTreesForMap = countTrees(map);
 
-  console.log('Number of trees:', treeCount);
+  const productOfTreeCounts = vectors.map(countTreesForMap).reduce((product, treeCount) => {
+    return product * treeCount;
+  }, 1);
+
+  console.log('Number of trees multiplied together is:', productOfTreeCounts);
 })

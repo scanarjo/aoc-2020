@@ -26,7 +26,7 @@ tap.test('countTrees()', async t => {
   tap.test('should count the correct number of trees', async t => {
     const map = loadMap(sampleData);
 
-    const vector = { x: 3, y: 1 };
+    const vector = [ 3, 1 ];
 
     t.equals(countTrees(map)(vector), 7);
   });
