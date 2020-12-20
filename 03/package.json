@@ -1,0 +1,16 @@
+{
+  "name": "03",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Scott Arden-Jones",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node .",
+    "test": "tap -w"
+  },
+  "devDependencies": {
+    "tap": "^14.11.0"
+  },
+  "dependencies": {}
+}
