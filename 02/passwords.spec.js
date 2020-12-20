@@ -1,7 +1,7 @@
 const tap = require('tap')
 const sinon = require('sinon');
 
-const { parsePolicy, validatePassword, createValidatePasswordEntry } = require('./passwords');
+const { parsePolicy, validatePassword, createValidatePasswordEntry, newValidatePassword } = require('./passwords');
 
 tap.test('parsePolicy()', async t => {
   t.test('should return a correctly parsed policy', async t => {
@@ -17,6 +17,21 @@ tap.test('validatePassword()', async t => {
   t.test('should return true for a valid password', async t => {
     t.equals(validatePassword({ min: 3, max: 3, char: 'a' }, 'ccaabb'), false);
   })
+})
+
+tap.test('newValidatePassword()', async t => {
+  t.test('should return false if the character appears in neither position', async t => {
+    t.equals(newValidatePassword({ min: 1, max: 3, char: 'x' }, 'axbxxx'), false);
+  });
+
+  t.test('should return false if the character appears in both positions', async t => {
+    t.equals(newValidatePassword({ min: 1, max: 3, char: 'x' }, 'xaxaaaa'), false);
+  });
+
+  t.test('should return true if the character appears in either position but not both', async t => {
+    t.equals(newValidatePassword({ min: 1, max: 3, char: 'x' }, 'xaaaaaa'), true);
+    t.equals(newValidatePassword({ min: 1, max: 3, char: 'x' }, 'aaxaaaa'), true);
+  });
 })
 
 tap.test('validatePasswordEntry()', async t => {

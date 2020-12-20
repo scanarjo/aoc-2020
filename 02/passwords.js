@@ -12,6 +12,15 @@ const validatePassword = (policy, password = '') => {
   return charCount <= policy.max && charCount >= policy.min;
 };
 
+const newValidatePassword = ({ min = -1, max = -1, char = '' }, password = '') => {
+  const chars = password.split('');
+
+  const firstChar = chars[min - 1];
+  const secondChar = chars[max - 1];
+
+  return (firstChar === char) !== (secondChar === char);
+}
+
 const createValidatePasswordEntry = ({ parsePolicy, validatePassword }) => (passwordEntry = '') => {
   const [ policyString, password ] = passwordEntry.split(': ');
 
@@ -23,6 +32,7 @@ const createValidatePasswordEntry = ({ parsePolicy, validatePassword }) => (pass
 module.exports = {
   parsePolicy,
   validatePassword,
+  newValidatePassword,
   createValidatePasswordEntry,
-  validatePasswordEntry: createValidatePasswordEntry({ parsePolicy, validatePassword }),
+  validatePasswordEntry: createValidatePasswordEntry({ parsePolicy, validatePassword: newValidatePassword }),
 };
