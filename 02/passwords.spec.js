@@ -1,25 +1,13 @@
 const tap = require('tap')
 const sinon = require('sinon');
 
-const parsePolicy = (policy = '') => {
-  const [ range, char ] = policy.split(' ');
-
-  const [ min, max ] = range.split('-').map(val => parseInt(val, 10));
-
-  return { min, max, char };
-};
+const { parsePolicy, validatePassword, createValidatePasswordEntry } = require('./passwords');
 
 tap.test('parsePolicy()', async t => {
   t.test('should return a correctly parsed policy', async t => {
     t.deepIs(parsePolicy('1-3 a'), { min: 1, max: 3, char: 'a' });
   });
 });
-
-const validatePassword = (policy, password = '') => {
-  const charCount = password.split('').filter(char => char === policy.char).length;
-
-  return charCount <= policy.max && charCount >= policy.min;
-}
 
 tap.test('validatePassword()', async t => {
   t.test('should return true for a valid password', async t => {
@@ -30,14 +18,6 @@ tap.test('validatePassword()', async t => {
     t.equals(validatePassword({ min: 3, max: 3, char: 'a' }, 'ccaabb'), false);
   })
 })
-
-const createValidatePasswordEntry = ({ parsePolicy, validatePassword }) => (passwordEntry = '') => {
-  const [ policyString, password ] = passwordEntry.split(': ');
-
-  const policy = parsePolicy(policyString);
-
-  return validatePassword(policy, password);
-}
 
 tap.test('validatePasswordEntry()', async t => {
   t.beforeEach((done, t) => {
