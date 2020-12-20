@@ -15,9 +15,9 @@ fs.readFile('./input.txt').then(file => {
 
   const countTreesForMap = countTrees(map);
 
-  const productOfTreeCounts = vectors.map(countTreesForMap).reduce((product, treeCount) => {
-    return product * treeCount;
-  }, 1);
+  const productOfTreeCounts = vectors
+    .map(countTreesForMap)
+    .reduce((product, treeCount) => product * treeCount, 1);
 
   console.log('Number of trees multiplied together is:', productOfTreeCounts);
 })
