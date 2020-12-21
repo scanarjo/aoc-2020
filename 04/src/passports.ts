@@ -7,19 +7,29 @@ export const parsePassport = (passportString: string) => {
   return Object.fromEntries(passportLines);
 };
 
+const validateBirthYear = (birthYearString: string) => {
+  const birthYear = parseInt(birthYearString, 10);
+
+  return birthYear >= 1920;
+}
+
+const T = () => true;
+
 export const validatePassport = (passport: any) => {
   const passportKeys = Object.keys(passport);
 
-  const requiredKeys = [
-    'byr',
-    'iyr',
-    'eyr',
-    'hgt',
-    'hcl',
-    'ecl',
-    'pid',
+  const requiredKeys: [string, (val: string) => boolean][] = [
+    ['byr', validateBirthYear],
+    ['iyr', T],
+    ['eyr', T],
+    ['hgt', T],
+    ['hcl', T],
+    ['ecl', T],
+    ['pid', T],
   ];
 
-  return requiredKeys.every(key => passportKeys.includes(key));
+  return requiredKeys.every(([key, validator]) => {
+    return passportKeys.includes(key) && validator(passport[key])
+  });
 };
 
