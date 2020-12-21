@@ -13,20 +13,20 @@ const isInRange = (min: number, max: number) => (value: string) => {
   return valueAsInt >= min && valueAsInt <= max;
 }
 
-const validateHeightInCm = isInRange(150, 193);
+const isValidHeightInCm = isInRange(150, 193);
 
-const validateHeightInInches = isInRange(59, 76);
+const isValidHeightInInches = isInRange(59, 76);
 
-const validateHeight = () => (height: string) => {
+const isValidHeight = () => (height: string) => {
   const result = /([0-9]{2,3})(cm|in)/.exec(height);
 
   if(!result) return false;
 
   const [ wholeMatch, heightValue, heightUnit ] = result;
 
-  const validate = heightUnit === 'cm' ? validateHeightInCm : validateHeightInInches;
+  const isValid = heightUnit === 'cm' ? isValidHeightInCm : isValidHeightInInches;
 
-  return validate(heightValue);
+  return isValid(heightValue);
 };
 
 const matches = (regEx: RegExp) => (value: string) => regEx.test(value);
@@ -40,7 +40,7 @@ export const validatePassport = (passport: any) => {
     ['byr', isInRange(1920, 2002)],
     ['iyr', isInRange(2010, 2020)],
     ['eyr', isInRange(2020, 2030)],
-    ['hgt', validateHeight()],
+    ['hgt', isValidHeight()],
     ['hcl', matches(/^#[0-9a-f]{6}$/)],
     ['ecl', isOneOf(['amb','blu','brn','gry','grn','hzl','oth'])],
     ['pid', matches(/^[0-9]{9}$/)],
