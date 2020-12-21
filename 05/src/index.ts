@@ -13,16 +13,17 @@ fs.readFile('./input.txt').then(file => {
 
   const largestId = seatIds[seatIds.length - 1];
 
-  const candidateSeatIds = [];
-  for (let candidateId = seatIds[0]; candidateId < largestId; candidateId++) {
-    if(seatIds.find(id => id === candidateId)) continue;
+  console.log('The largest Seat ID is: ', largestId);
 
-    if(seatIds.find(id => id === candidateId + 1) && seatIds.find(id => id === candidateId - 1)) {
-      candidateSeatIds.push(candidateId);
+  const candidateSeatIds = [];
+
+  for (let index = 0; index < seatIds.length; index++) {
+    const candidateId = seatIds[index];
+
+    if(seatIds[index + 1] === candidateId + 2) {
+      candidateSeatIds.push(candidateId + 1);
     }
   }
 
   console.log('Your seat is one of: ', candidateSeatIds);
-
-  console.log('The largest Seat ID is: ', largestId);
 })
