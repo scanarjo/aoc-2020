@@ -1,6 +1,7 @@
 import tap from 'tap';
 
-import { acc, jmp, MachineState, nop } from './instructions';
+import { acc, jmp, nop } from './instructions';
+import { MachineState } from "./MachineState";
 
 tap.test('acc()', async t => {
   t.test('should increment the accumulator by the value provided', async t => {

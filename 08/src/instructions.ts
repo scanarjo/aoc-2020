@@ -1,7 +1,4 @@
-export class MachineState {
-  accumulator = 0
-  currentInstruction = 0
-}
+import { MachineState } from "./MachineState";
 
 export const nop = (value: number, state: MachineState) => state;
 

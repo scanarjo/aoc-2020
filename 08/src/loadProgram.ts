@@ -1,4 +1,6 @@
-export const parseInstruction = (instruction: string) => [
+export type Instruction = [string, number]
+
+export const parseInstruction = (instruction: string): Instruction => [
   instruction.substring(0, 3),
   Number(instruction.substring(4))
 ];
