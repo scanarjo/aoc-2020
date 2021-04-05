@@ -9,6 +9,7 @@ fs.readFile('./input.txt').then(program => {
 
     console.log('Program executed successfully. Result: ', result);
   } catch (error) {
-    console.log('Program failed to execute. Last value: ', machine.currentValue);
+    console.log(`Program failed to execute. Last value: ${machine.currentValue}. Repeated instruction: ${machine.currentLineNumber}`);
+    console.log('Program history: \r\n', machine.history);
   }
 })
