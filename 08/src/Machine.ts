@@ -23,6 +23,17 @@ export class Machine {
     return this.#state.accumulator;
   }
 
+  get history() {
+    return this.#history
+      .reverse()
+      .map(i => {
+        const [command, arg] = this.#instructions[i];
+
+        return `${String(i + 1).padStart(4, ' ')}: ${command} ${arg >= 0 ? '+' : ''}${arg}`;
+      })
+      .join('\r\n')
+  }
+
   private executeInstruction([command, argument]: [string, number]) {
     if (this.#history.includes(this.currentLineNumber)) {
       throw new Error('Infinite loop detected');
